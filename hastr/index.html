@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurace U Hastrmana | Jedovnice – Poctivá kuchyně & pivo u Olšovce</title>
+    <meta name="description" content="Navštivte srubovou Restauraci U Hastrmana v Jedovnicích (Kopeček 667) přímo u rybníka Olšovec. Skvěle pivo, polední meníčka, krytá terasa a víkendové gastro akce.">
+    
+    <!-- Google Fonts: Lora (tradiční patkové pro nadpisy) & Plus Jakarta Sans (čisté bezpatkové pro text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Lora"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        cream: '#f5efe6',
+                        paper: '#fcfaf5',
+                        charcoal: '#1e1815',
+                        wood: '#2a211c',
+                        oak: '#3d3028',
+                        amber: {
+                            DEFAULT: '#b45309',
+                            light: '#d97706',
+                            dark: '#92400e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Jemný papírový nádech pozadí a tradiční detaily */
+        body {
+            background-color: #f5efe6;
+            background-image: radial-gradient(rgba(120, 90, 60, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Bavorský modro-bílý dekorativní proužek (pro Oktoberfest) */
+        .border-bavaria {
+            background-image: repeating-linear-gradient(
+                45deg,
+                #1e5b88,
+                #1e5b88 12px,
+                #f8fafc 12px,
+                #f8fafc 24px
+            );
+        }
+
+        /* Podzimní / Svatomartinský dekorativní proužek (pro Husu a další akce) */
+        .border-autumn {
+            background: linear-gradient(90deg, #5c2410, #b45309, #7f1d1d, #b45309, #5c2410);
+        }
+
+        /* Vnitřní ozdobný rámeček jídelního lístku */
+        .menu-card-frame {
+            box-shadow: 0 2px 15px -3px rgba(30, 24, 21, 0.07), 0 0 0 1px rgba(180, 155, 125, 0.35);
+        }
+    </style>
+</head>
+<body class="bg-cream text-stone-800 antialiased selection:bg-amber-700 selection:text-white flex flex-col min-h-screen">
+
+    <!-- ================= STICKY NAVIGACE ================= -->
+    <header class="sticky top-0 z-50 bg-charcoal/95 backdrop-blur-md text-stone-100 border-b border-oak shadow-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo / Název podniku -->
+                <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
+                    <div class="w-10 h-10 rounded-lg bg-wood border border-amber-500/40 flex items-center justify-center text-amber-400 group-hover:border-amber-400 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 8h1a4 4 0 110 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM7 4a2 2 0 012-2h2a2 2 0 012 2v1H7V4z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-stone-100 block leading-none">U Hastrmana</span>
+                        <span class="text-[11px] text-amber-500/90 font-medium tracking-widest uppercase mt-0.5 block">Jedovnice &bull; Olšovec</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigace (3 hlavní záložky + dynamický odkaz na akci + přepínač jazyků) -->
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-7">
+                    <a id="nav-event-desktop" href="#akce" class="hidden items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold text-sm tracking-wide transition-colors py-2">
+                        <span class="text-amber-500">❖</span>
+                        <span id="nav-event-desktop-text">Akce</span>
+                    </a>
+                    <a href="#denni-menu" data-i18n="nav_daily" class="text-stone-300 hover:text-amber-400 font-medium text-sm tracking-wide transition-colors py-2">
+                        Denní menu
+                    </a>
+                    <a href="#jidelak" data-i18n="nav_regular" class="text-stone-300 hover:text-amber-400 font-medium text-sm tracking-wide transition-colors py-2">
+                        Jídelní lístek
+                    </a>
+                    <a href="#kontakt" data-i18n="nav_contact" class="text-stone-300 hover:text-amber-400 font-medium text-sm tracking-wide transition-colors py-2">
+                        Kontakt & Lokalita
+                    </a>
+
+                    <!-- Přepínač jazyků CZ / EN (Desktop) -->
+                    <div class="inline-flex items-center bg-wood p-0.5 rounded-lg border border-oak text-xs font-semibold">
+                        <button type="button" onclick="setLanguage('cs')" id="lang-btn-cs-desktop" class="px-2.5 py-1 rounded-md transition-colors bg-amber-700 text-white">
+                            CZ
+                        </button>
+                        <button type="button" onclick="setLanguage('en')" id="lang-btn-en-desktop" class="px-2.5 py-1 rounded-md transition-colors text-stone-400 hover:text-stone-200">
+                            EN
+                        </button>
+                    </div>
+
+                    <a href="tel:+420605577026" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-600 text-stone-100 font-semibold text-sm px-4 py-2.5 rounded-lg border border-amber-500/30 transition-all">
+                        <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        605 577 026
+                    </a>
+                </nav>
+
+                <!-- Mobilní akční prvky -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <!-- Přepínač jazyků CZ / EN (Mobil) -->
+                    <div class="inline-flex items-center bg-wood p-0.5 rounded-lg border border-oak text-xs font-semibold">
+                        <button type="button" onclick="setLanguage('cs')" id="lang-btn-cs-mobile" class="px-2 py-1 rounded-md transition-colors bg-amber-700 text-white">
+                            CZ
+                        </button>
+                        <button type="button" onclick="setLanguage('en')" id="lang-btn-en-mobile" class="px-2 py-1 rounded-md transition-colors text-stone-400">
+                            EN
+                        </button>
+                    </div>
+
+                    <a href="tel:+420605577026" class="inline-flex items-center gap-1.5 bg-amber-700 active:bg-amber-800 text-white font-semibold text-xs px-3 py-2 rounded-lg border border-amber-500/30">
+                        <svg class="w-3.5 h-3.5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <span data-i18n="nav_call">Zavolat</span>
+                    </a>
+                    
+                    <button id="mobile-menu-btn" type="button" aria-label="Otevřít menu" class="p-2 rounded-lg text-stone-300 hover:text-white hover:bg-wood focus:outline-none">
+                        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobilní rozbalovací menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-wood border-t border-oak px-4 pt-3 pb-5 space-y-1.5 shadow-inner">
+            <a id="nav-event-mobile" href="#akce" class="mobile-nav-link hidden items-center gap-2 px-4 py-2.5 rounded-lg text-base font-semibold text-amber-400 bg-charcoal/50 hover:bg-charcoal transition-colors">
+                <span id="nav-event-mobile-text">Víkendová akce</span>
+            </a>
+            <a href="#denni-menu" data-i18n="nav_daily" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium text-stone-200 hover:bg-charcoal/50 hover:text-amber-400 transition-colors">
+                Denní menu
+            </a>
+            <a href="#jidelak" data-i18n="nav_regular" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium text-stone-200 hover:bg-charcoal/50 hover:text-amber-400 transition-colors">
+                Jídelní lístek
+            </a>
+            <a href="#kontakt" data-i18n="nav_contact" class="mobile-nav-link block px-4 py-2.5 rounded-lg text-base font-medium text-stone-200 hover:bg-charcoal/50 hover:text-amber-400 transition-colors">
+                Kontakt & Lokalita
+            </a>
+        </div>
+    </header>
+
+    <!-- ================= 1. HERO SEKCE (S REÁLNOU FOTKOU TERASY U OLŠOVCE) ================= -->
+    <section class="relative bg-charcoal text-stone-100 overflow-hidden border-b-4 border-oak">
+        <!-- Reálná fotka terasy U Hastrmana (hastr 2.jpg), pokud by chyběla, načte se záložní -->
+        <div class="absolute inset-0 z-0">
+            <img src="hastr 2.jpg" 
+                 onerror="this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1920&q=80'"
+                 alt="Terasa restaurace U Hastrmana s výhledem na rybník Olšovec" 
+                 class="w-full h-full object-cover object-center opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32 text-center">
+            <!-- Dynamický banner na aktuální víkendovou akci -->
+            <a id="hero-event-badge" href="#akce" class="hidden items-center gap-2 px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium tracking-wide bg-wood/90 text-amber-300 border border-amber-500/40 mb-7 hover:bg-wood transition-all shadow-sm">
+                <span class="text-amber-400">❖</span>
+                <span id="hero-event-badge-text">Speciální akce</span> &rarr;
+            </a>
+            
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-normal text-stone-100 mb-6 leading-tight">
+                <span data-i18n="hero_title_1">Poctivá srubová hospoda</span> <br class="hidden sm:inline">
+                <span data-i18n="hero_title_2" class="italic font-normal text-amber-400">U Hastrmana v Jedovnicích</span>
+            </h1>
+            
+            <p data-i18n="hero_subtitle" class="max-w-2xl mx-auto text-base sm:text-lg text-stone-200/95 mb-10 font-normal leading-relaxed">
+                Zastavte se u nás na Kopečku na poctivý domácí oběd, 
+                večerní posezení s přáteli u skvělého piva nebo na kryté terase s výhledem přímo na rybník Olšovec.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#denni-menu" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-base px-7 py-3.5 rounded-lg border border-amber-500/40 shadow-lg transition-all">
+                    <svg class="w-5 h-5 text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    <span data-i18n="hero_btn_menu">Dnešní nabídka</span>
+                </a>
+                
+                <a href="tel:+420605577026" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-wood/85 hover:bg-wood text-stone-100 backdrop-blur-sm border border-stone-600 font-semibold text-base px-7 py-3.5 rounded-lg transition-all">
+                    <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    <span data-i18n="hero_btn_call">Tel. Objednávka: 605 577 026</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DYNAMICKÁ SEKCE: SPECIÁLNÍ AKCE (#akce) ================= -->
+    <!-- Tato sekce se automaticky plní a zobrazuje/skrývá podle nastavení SPECIAL_EVENT dole ve skriptu -->
+    <section id="akce" class="hidden py-16 sm:py-20 bg-[#efe7da] border-b border-[#dccfb8] relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" id="special-event-container"></div>
+    </section>
+
+    <!-- ================= 2. SEKCE: DENNÍ A TÝDENNÍ MENU ================= -->
+    <section id="denni-menu" class="py-16 sm:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="text-center mb-12">
+            <span data-i18n="daily_badge" class="text-amber-800 font-semibold text-xs uppercase tracking-widest block mb-2">Poctivé obědy</span>
+            <h2 data-i18n="daily_title" class="font-serif text-3xl sm:text-4xl font-bold text-charcoal">Denní a týdenní menu</h2>
+            <div class="flex items-center justify-center gap-3 my-3 text-amber-700/60">
+                <span class="w-12 h-px bg-amber-800/30"></span>
+                <span class="text-xs">❖</span>
+                <span class="w-12 h-px bg-amber-800/30"></span>
+            </div>
+            <p data-i18n="daily_subtitle" class="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+                Polední menu podáváme každý všední den od 11:00 do 14:00 (nebo do vyprodání).
+            </p>
+        </div>
+
+        <!-- Skeleton Loader -->
+        <div id="daily-menu-skeleton" class="space-y-6">
+            <div class="bg-paper border border-[#dfd3c3] rounded-xl p-6 sm:p-8">
+                <div class="h-6 bg-stone-200 rounded w-48 mb-6"></div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div class="h-4 bg-stone-200 rounded w-2/3"></div>
+                        <div class="h-5 bg-stone-200 rounded w-16"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="h-4 bg-stone-200 rounded w-1/2"></div>
+                        <div class="h-5 bg-stone-200 rounded w-16"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kontejner pro dynamicky vykreslené denní menu -->
+        <div id="daily-menu-content" class="hidden space-y-6"></div>
+
+        <!-- Chybový stav (Fallback) -->
+        <div id="daily-menu-error" class="hidden bg-paper border border-[#dfd3c3] rounded-xl p-8 sm:p-10 text-center max-w-xl mx-auto menu-card-frame">
+            <h3 data-i18n="daily_error_title" class="font-serif text-xl font-bold text-charcoal mb-2">Právě aktualizujeme dnešní nabídku</h3>
+            <p data-i18n="daily_error_desc" class="text-stone-600 mb-6 text-sm sm:text-base">
+                Denní menu se momentálně nepodařilo načíst. Zavolejte nám prosím a my vám rádi řekneme, co dobrého dnes kuchař navařil!
+            </p>
+            <a href="tel:+420605577026" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                +420 605 577 026
+            </a>
+        </div>
+    </section>
+
+    <!-- ================= 3. SEKCE: STÁLÝ JÍDELNÍ LÍSTEK ================= -->
+    <section id="jidelak" class="py-16 sm:py-24 bg-charcoal text-stone-100 border-y-4 border-oak relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span data-i18n="regular_badge" class="text-amber-400 font-semibold text-xs uppercase tracking-widest block mb-2">Stálá nabídka</span>
+                <h2 data-i18n="regular_title" class="font-serif text-3xl sm:text-4xl font-bold text-stone-100">Jídelní a nápojový lístek</h2>
+                <div class="flex items-center justify-center gap-3 my-3 text-amber-500/60">
+                    <span class="w-12 h-px bg-amber-500/30"></span>
+                    <span class="text-xs">❖</span>
+                    <span class="w-12 h-px bg-amber-500/30"></span>
+                </div>
+                <p data-i18n="regular_subtitle" class="text-stone-400 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+                    Od vychlazeného čepovaného piva přes hospodské chuťovky k pivu až po poctivé minutky a speciality.
+                </p>
+            </div>
+
+            <!-- Skeleton Loader -->
+            <div id="regular-menu-skeleton" class="space-y-8">
+                <div class="bg-wood border border-oak rounded-xl p-6 sm:p-8">
+                    <div class="h-7 bg-stone-700 rounded w-48 mb-6"></div>
+                    <div class="space-y-5">
+                        <div class="flex justify-between">
+                            <div class="w-2/3 space-y-2">
+                                <div class="h-5 bg-stone-700 rounded w-1/2"></div>
+                                <div class="h-3 bg-stone-700/60 rounded w-3/4"></div>
+                            </div>
+                            <div class="h-5 bg-stone-700 rounded w-16"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kontejner pro dynamicky vykreslený stálý lístek -->
+            <div id="regular-menu-content" class="hidden space-y-8"></div>
+
+            <!-- Chybový stav -->
+            <div id="regular-menu-error" class="hidden bg-wood border border-oak rounded-xl p-8 sm:p-10 text-center max-w-xl mx-auto">
+                <h3 data-i18n="regular_error_title" class="font-serif text-xl font-bold text-white mb-2">Jídelní lístek je momentálně nedostupný</h3>
+                <p data-i18n="regular_error_desc" class="text-stone-400 mb-6 text-sm sm:text-base">
+                    Omlouváme se, stálou nabídku se nepodařilo načíst. Pro rezervaci stolu nebo dotazy na kuchyni nám neváhejte zavolat.
+                </p>
+                <a href="tel:+420605577026" data-i18n="regular_error_btn" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                    Zavolat do hospody: +420 605 577 026
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOTOGALERIE PODNIKU (TVOJE 4 FOTKY) ================= -->
+    <section class="py-16 sm:py-24 bg-[#efe7da] border-b border-[#dccfb8]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span data-i18n="gallery_badge" class="text-amber-800 font-semibold text-xs uppercase tracking-widest block mb-2">Jak to u nás vypadá</span>
+                <h2 data-i18n="gallery_title" class="font-serif text-3xl sm:text-4xl font-bold text-charcoal">Atmosféra U Hastrmana</h2>
+                <div class="flex items-center justify-center gap-3 my-3 text-amber-700/60">
+                    <span class="w-12 h-px bg-amber-800/30"></span>
+                    <span class="text-xs">❖</span>
+                    <span class="w-12 h-px bg-amber-800/30"></span>
+                </div>
+                <p data-i18n="gallery_subtitle" class="text-stone-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+                    Poctivý dřevěný srub, útulný interiér a prostorná krytá terasa přímo na břehu rybníka Olšovec.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5">
+                <!-- Fotka 1: Exteriér srubu (velká, 7 sloupců) -->
+                <div class="lg:col-span-7 group relative rounded-xl overflow-hidden shadow-md border-4 border-paper bg-stone-200 h-72 sm:h-80 cursor-pointer" onclick="openLightbox('hastr.jpg')">
+                    <img src="hastr.jpg" alt="Srubová restaurace U Hastrmana Jedovnice" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent flex items-end p-5">
+                        <span data-i18n="gallery_cap_1" class="font-serif text-stone-100 font-semibold text-base sm:text-lg">Stylový dřevěný srub v Jedovnicích</span>
+                    </div>
+                </div>
+
+                <!-- Fotka 2: Terasa s výhledem na rybník (5 sloupců) -->
+                <div class="lg:col-span-5 group relative rounded-xl overflow-hidden shadow-md border-4 border-paper bg-stone-200 h-72 sm:h-80 cursor-pointer" onclick="openLightbox('hastr 2.jpg')">
+                    <img src="hastr 2.jpg" alt="Krytá terasa s výhledem na rybník Olšovec" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent flex items-end p-5">
+                        <span data-i18n="gallery_cap_2" class="font-serif text-stone-100 font-semibold text-base sm:text-lg">Krytá terasa u rybníka Olšovec</span>
+                    </div>
+                </div>
+
+                <!-- Fotka 3: Výčep a bar (5 sloupců) -->
+                <div class="lg:col-span-5 group relative rounded-xl overflow-hidden shadow-md border-4 border-paper bg-stone-200 h-72 sm:h-80 cursor-pointer" onclick="openLightbox('hastr 3.jpg')">
+                    <img src="hastr 3.jpg" alt="Dřevěný bar a výčep U Hastrmana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent flex items-end p-5">
+                        <span data-i18n="gallery_cap_3" class="font-serif text-stone-100 font-semibold text-base sm:text-lg">Srubový výčep a poctivé čepované pivo</span>
+                    </div>
+                </div>
+
+                <!-- Fotka 4: Detail stolu (7 sloupců) -->
+                <div class="lg:col-span-7 group relative rounded-xl overflow-hidden shadow-md border-4 border-paper bg-stone-200 h-72 sm:h-80 cursor-pointer" onclick="openLightbox('hastr 4.jpg')">
+                    <img src="hastr 4.jpg" alt="Posezení v restauraci U Hastrmana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/10 to-transparent flex items-end p-5">
+                        <span data-i18n="gallery_cap_4" class="font-serif text-stone-100 font-semibold text-base sm:text-lg">Příjemné posezení uvnitř i venku</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 4. SEKCE: KONTAKT & LOKALITA ================= -->
+    <section id="kontakt" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="text-center mb-14">
+            <span data-i18n="contact_badge" class="text-amber-800 font-semibold text-xs uppercase tracking-widest block mb-2">Zastavte se u nás</span>
+            <h2 data-i18n="contact_title" class="font-serif text-3xl sm:text-4xl font-bold text-charcoal">Kontakt & Lokalita</h2>
+            <div class="flex items-center justify-center gap-3 my-3 text-amber-700/60">
+                <span class="w-12 h-px bg-amber-800/30"></span>
+                <span class="text-xs">❖</span>
+                <span class="w-12 h-px bg-amber-800/30"></span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Levý sloupec: Kontaktní údaje a otevírací doba (5 sloupců) -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Karta: Adresa a Telefon -->
+                <div class="bg-paper rounded-xl p-6 sm:p-8 menu-card-frame space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-11 h-11 rounded-lg bg-[#efe7da] text-amber-800 border border-[#dfd3c3] flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 data-i18n="contact_address_label" class="text-xs font-bold uppercase tracking-wider text-stone-500">Adresa podniku</h3>
+                            <p class="font-serif text-lg font-bold text-charcoal mt-0.5">Restaurace U Hastrmana</p>
+                            <p class="text-base text-stone-700">Kopeček 667, 679 06 Jedovnice</p>
+                            <a href="https://maps.app.goo.gl/r4eg8aQgSXroR85u5" target="_blank" rel="noopener noreferrer" data-i18n="contact_map_link" class="text-sm font-semibold text-amber-800 hover:text-amber-600 inline-flex items-center gap-1 mt-1.5">
+                                Otevřít navigaci v Google Maps &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr class="border-[#e6dccf]">
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-11 h-11 rounded-lg bg-[#efe7da] text-amber-800 border border-[#dfd3c3] flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 data-i18n="contact_phone_label" class="text-xs font-bold uppercase tracking-wider text-stone-500">Rezervace & Dotazy</h3>
+                            <a href="tel:+420605577026" class="font-serif text-xl sm:text-2xl font-bold text-amber-800 hover:text-amber-600 transition-colors block mt-0.5">
+                                +420 605 577 026
+                            </a>
+                            <p data-i18n="contact_phone_note" class="text-xs text-stone-500 mt-1">Rezervace přijímáme telefonicky během otevírací doby.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Karta: Otevírací doba -->
+                <div class="bg-wood text-stone-100 rounded-xl p-6 sm:p-8 border border-oak shadow-md">
+                    <div class="flex items-center gap-3 mb-5">
+                        <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <h3 data-i18n="hours_title" class="font-serif text-xl font-bold tracking-tight">Otevírací doba</h3>
+                    </div>
+
+                    <ul class="space-y-3 text-sm sm:text-base">
+                        <li class="flex justify-between py-1.5 border-b border-oak">
+                            <span data-i18n="hours_mon_thu" class="text-stone-300">Pondělí – Čtvrtek</span>
+                            <span class="font-semibold text-stone-100">11:00 – 22:00</span>
+                        </li>
+                        <li class="flex justify-between py-1.5 border-b border-oak">
+                            <span data-i18n="hours_fri_sat" class="text-stone-300">Pátek – Sobota</span>
+                            <span class="font-semibold text-amber-400">11:00 – 24:00</span>
+                        </li>
+                        <li class="flex justify-between py-1.5">
+                            <span data-i18n="hours_sun" class="text-stone-300">Neděle</span>
+                            <span class="font-semibold text-stone-100">8:00 – 22:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Karta: Vybavení a doplňující info -->
+                <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div class="bg-paper p-3.5 rounded-xl menu-card-frame flex items-center gap-3">
+                        <span class="text-amber-800 bg-[#efe7da] p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                        </span>
+                        <span data-i18n="feat_cards" class="text-xs sm:text-sm font-semibold text-stone-800">Platba kartou</span>
+                    </div>
+
+                    <div class="bg-paper p-3.5 rounded-xl menu-card-frame flex items-center gap-3">
+                        <span class="text-amber-800 bg-[#efe7da] p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </span>
+                        <span data-i18n="feat_terrace" class="text-xs sm:text-sm font-semibold text-stone-800">Terasa u vody</span>
+                    </div>
+
+                    <div class="bg-paper p-3.5 rounded-xl menu-card-frame flex items-center gap-3">
+                        <span class="text-amber-800 bg-[#efe7da] p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </span>
+                        <span data-i18n="feat_parking" class="text-xs sm:text-sm font-semibold text-stone-800">Parkování</span>
+                    </div>
+
+                    <div class="bg-paper p-3.5 rounded-xl menu-card-frame flex items-center gap-3">
+                        <span class="text-amber-800 bg-[#efe7da] p-2 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                            </svg>
+                        </span>
+                        <span data-i18n="feat_wifi" class="text-xs sm:text-sm font-semibold text-stone-800">Wi-Fi zdarma</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pravý sloupec: Mapa Restaurace U Hastrmana Jedovnice (7 sloupců) -->
+            <div id="mapa" class="lg:col-span-7 bg-paper rounded-xl p-2 sm:p-3 menu-card-frame h-[380px] sm:h-[480px] lg:h-full min-h-[440px] flex flex-col">
+                <iframe 
+                    title="Mapa Restaurace U Hastrmana Jedovnice"
+                    src="https://www.google.com/maps?q=Restaurace+U+Hastrmana,+Kope%C4%8Dek+667,+679+06+Jedovnice&output=embed" 
+                    class="w-full flex-grow rounded-lg border-0" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= PATIČKA ================= -->
+    <footer class="bg-charcoal text-stone-400 py-10 border-t border-oak mt-auto">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+            <div class="flex items-center gap-2">
+                <span class="font-serif font-bold text-stone-200">Restaurace U Hastrmana</span>
+                <span>&copy; <span id="current-year"></span> Jedovnice.</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#denni-menu" data-i18n="nav_daily" class="hover:text-amber-400 transition-colors">Denní menu</a>
+                <a href="#jidelak" data-i18n="nav_regular" class="hover:text-amber-400 transition-colors">Jídelní lístek</a>
+                <a href="#kontakt" data-i18n="footer_contact" class="hover:text-amber-400 transition-colors">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= PLOVOUCÍ MOBILNÍ TLAČÍTKO PRO VOLÁNÍ ================= -->
+    <a href="tel:+420605577026" 
+       aria-label="Zavolat rezervaci"
+       class="md:hidden fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-amber-700 hover:bg-amber-600 active:scale-95 text-white flex items-center justify-center shadow-xl border-2 border-paper transition-transform">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+    </a>
+
+    <!-- ================= LIGHTBOX MODAL PRO FOTKY A PLAKÁTY ================= -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button type="button" class="absolute top-5 right-5 text-white bg-stone-800/80 hover:bg-stone-700 p-3 rounded-full" aria-label="Zavřít náhled">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <img id="lightbox-img" src="" alt="Zvětšený náhled" class="max-h-[90vh] max-w-[95vw] rounded-lg shadow-2xl object-contain">
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIKA ================= -->
+    <script>
+        /* ============================================================================
+         * PŘEKLADOVÝ SLOVNÍK PRO PŘEPÍNAČ CZ / EN
+         * (České texty jsou 100% shodné s tvým původním kódem)
+         * ============================================================================ */
+        let currentLang = localStorage.getItem('hastrman_lang') || 'cs';
+        let lastDailyRows = null;
+        let lastRegularRows = null;
+
+        const UI_TEXT = {
+            cs: {
+                nav_daily: "Denní menu",
+                nav_regular: "Jídelní lístek",
+                nav_contact: "Kontakt & Lokalita",
+                footer_contact: "Kontakt",
+                nav_call: "Zavolat",
+                hero_title_1: "Poctivá srubová hospoda",
+                hero_title_2: "U Hastrmana v Jedovnicích",
+                hero_subtitle: "Zastavte se u nás na Kopečku na poctivý domácí oběd, večerní posezení s přáteli u skvělého piva nebo na kryté terase s výhledem přímo na rybník Olšovec.",
+                hero_btn_menu: "Dnešní nabídka",
+                hero_btn_call: "Tel. Objednávka: 605 577 026",
+                daily_badge: "Poctivé obědy",
+                daily_title: "Denní a týdenní menu",
+                daily_subtitle: "Polední menu podáváme každý všední den od 11:00 do 14:00 (nebo do vyprodání).",
+                daily_weekly_title: "Týdenní nabídka",
+                daily_weekly_badge: "Platí celý týden",
+                daily_today_badge: "Dnes podáváme",
+                daily_soup_default: "Polévka",
+                daily_error_title: "Právě aktualizujeme dnešní nabídku",
+                daily_error_desc: "Denní menu se momentálně nepodařilo načíst. Zavolejte nám prosím a my vám rádi řekneme, co dobrého dnes kuchař navařil!",
+                regular_badge: "Stálá nabídka",
+                regular_title: "Jídelní a nápojový lístek",
+                regular_subtitle: "Od vychlazeného čepovaného piva přes hospodské chuťovky k pivu až po poctivé minutky a speciality.",
+                regular_error_title: "Jídelní lístek je momentálně nedostupný",
+                regular_error_desc: "Omlouváme se, stálou nabídku se nepodařilo načíst. Pro rezervaci stolu nebo dotazy na kuchyni nám neváhejte zavolat.",
+                regular_error_btn: "Zavolat do hospody: +420 605 577 026",
+                gallery_badge: "Jak to u nás vypadá",
+                gallery_title: "Atmosféra U Hastrmana",
+                gallery_subtitle: "Poctivý dřevěný srub, útulný interiér a prostorná krytá terasa přímo na břehu rybníka Olšovec.",
+                gallery_cap_1: "Stylový dřevěný srub v Jedovnicích",
+                gallery_cap_2: "Krytá terasa u rybníka Olšovec",
+                gallery_cap_3: "Srubový výčep a poctivé čepované pivo",
+                gallery_cap_4: "Příjemné posezení uvnitř i venku",
+                contact_badge: "Zastavte se u nás",
+                contact_title: "Kontakt & Lokalita",
+                contact_address_label: "Adresa podniku",
+                contact_map_link: "Otevřít navigaci v Google Maps →",
+                contact_phone_label: "Rezervace & Dotazy",
+                contact_phone_note: "Rezervace přijímáme telefonicky během otevírací doby.",
+                hours_title: "Otevírací doba",
+                hours_mon_thu: "Pondělí – Čtvrtek",
+                hours_fri_sat: "Pátek – Sobota",
+                hours_sun: "Neděle",
+                feat_cards: "Platba kartou",
+                feat_terrace: "Terasa u vody",
+                feat_parking: "Parkování",
+                feat_wifi: "Wi-Fi zdarma",
+                event_reserve_note: "Doporučujeme včasnou rezervaci místa u stolu.",
+                event_reserve_btn: "Rezervovat stůl: 605 577 026",
+                event_zoom: "Zvětšit plakát"
+            },
+            en: {
+                nav_daily: "Daily Menu",
+                nav_regular: "Food & Drinks",
+                nav_contact: "Contact & Location",
+                footer_contact: "Contact",
+                nav_call: "Call",
+                hero_title_1: "Traditional Log Cabin Pub",
+                hero_title_2: "U Hastrmana in Jedovnice",
+                hero_subtitle: "Stop by na Kopečku for a hearty homemade lunch, an evening with friends over great draft beer, or relax on our covered terrace overlooking Olšovec Pond.",
+                hero_btn_menu: "Today's Menu",
+                hero_btn_call: "Phone Orders: 605 577 026",
+                daily_badge: "Weekday Lunches",
+                daily_title: "Daily & Weekly Menu",
+                daily_subtitle: "Lunch menu is served every weekday from 11:00 to 14:00 (or until sold out).",
+                daily_weekly_title: "Weekly Offer",
+                daily_weekly_badge: "Valid all week",
+                daily_today_badge: "Served Today",
+                daily_soup_default: "Soup",
+                daily_error_title: "Updating today's menu",
+                daily_error_desc: "The daily menu could not be loaded right now. Please give us a call and we'll gladly tell you what the chef prepared today!",
+                regular_badge: "Permanent Menu",
+                regular_title: "Food & Drink Menu",
+                regular_subtitle: "From cold draft beer and traditional pub snacks to hearty main courses and local specialties.",
+                regular_error_title: "Menu is currently unavailable",
+                regular_error_desc: "We apologize, the permanent menu could not be loaded. For table reservations or kitchen inquiries, please call us.",
+                regular_error_btn: "Call the pub: +420 605 577 026",
+                gallery_badge: "Take a Look Inside",
+                gallery_title: "Atmosphere at U Hastrmana",
+                gallery_subtitle: "Authentic wooden log cabin, cozy interior and a spacious covered terrace right on the shore of Olšovec Pond.",
+                gallery_cap_1: "Stylish wooden log cabin in Jedovnice",
+                gallery_cap_2: "Covered terrace by Olšovec Pond",
+                gallery_cap_3: "Log cabin bar and traditional draft beer",
+                gallery_cap_4: "Cozy indoor and outdoor seating",
+                contact_badge: "Visit Us",
+                contact_title: "Contact & Location",
+                contact_address_label: "Address",
+                contact_map_link: "Open navigation in Google Maps →",
+                contact_phone_label: "Reservations & Inquiries",
+                contact_phone_note: "We accept reservations by phone during opening hours.",
+                hours_title: "Opening Hours",
+                hours_mon_thu: "Monday – Thursday",
+                hours_fri_sat: "Friday – Saturday",
+                hours_sun: "Sunday",
+                feat_cards: "Card Payment",
+                feat_terrace: "Lakeside Terrace",
+                feat_parking: "Parking",
+                feat_wifi: "Free Wi-Fi",
+                event_reserve_note: "We recommend booking your table in advance.",
+                event_reserve_btn: "Book a Table: 605 577 026",
+                event_zoom: "Enlarge poster"
+            }
+        };
+
+        // Pomocný překladač dnů a základních pojmů z tabulky při přepnutí do EN
+        function translateSheetTerm(str) {
+            if (!str || currentLang === 'cs') return str;
+            const norm = normalizeKey(str);
+            const dict = {
+                'pondeli': 'Monday',
+                'utery': 'Tuesday',
+                'streda': 'Wednesday',
+                'ctvrtek': 'Thursday',
+                'patek': 'Friday',
+                'sobota': 'Saturday',
+                'nedele': 'Sunday',
+                'polevka': 'Soup',
+                'v cene menu': 'included with menu',
+                'ostatni': 'Other'
+            };
+            for (const [k, v] of Object.entries(dict)) {
+                if (norm === k || norm.startsWith(k)) return v;
+            }
+            return str;
+        }
+
+        /* ============================================================================
+         * 1. KONFIGURACE SPECIÁLNÍ AKCE (ZDE SNADNO MĚNÍŠ AKCE KAŽDÝ TÝDEN/MĚSÍC)
+         * ============================================================================
+         * Jak to funguje:
+         * - active: true (zobrazí akci na webu) | false (kompletně akci schová)
+         * - theme: "bavaria" (modro-bílé proužky) | "autumn" (podzimní/svatomartinské barvy)
+         * - posters: pole názvů obrázků plakátů (může být 1, 2 nebo klidně prázdné [])
+         */
+        const SPECIAL_EVENT = {
+            active: true,
+            theme: "bavaria",
+            navShortTitle: "Oktoberfest",
+            heroBadgeText: "Tento víkend 30.–31. 10.: Oktoberfest U Hastrmana",
+            sectionBadge: "🍺 Speciální víkendová akce",
+            title: "Oktoberfest U Hastrmana",
+            subtitle: "30. – 31. 10. 2026 • Pátek od 17:00, Sobota od 11:00",
+            
+            // Hlavní ceník / nabídka (např. speciální piva nebo hlavní chody s cenou)
+            mainListTitle: "🍻 Na čepu tuplované slavkovské speciály",
+            mainListBadge: "Slavkovský pivovar",
+            mainItems: [
+                { name: "Slavkovská dvanáctka", note: "0,5 l", price: "55 Kč" },
+                { name: "Slavkovský ležák za studena chmelený", note: "0,5 l", price: "55 Kč" },
+                { name: "Slavkovský ležák Tří císařů", note: "0,5 l", price: "55 Kč" },
+                { name: "Industra Beer Dry Hop", note: "0,5 l", price: "55 Kč" },
+                { name: "Slavkovský Pale Ale", note: "0,5 l", price: "65 Kč" },
+                { name: "Slavkovský kyseláč – Malina & rybíz", note: "0,4 l", price: "80 Kč" },
+                { name: "Slavkovský kyseláč – Ananas & grep", note: "0,4 l", price: "80 Kč" }
+            ],
+
+            // Doplňkový seznam v rámečku (např. jídla k pivu nebo doprovodné info)
+            extraBoxTitle: "🥨 Speciální kuchyně k pivu",
+            extraItems: [
+                "Poctivá gulášová polévka",
+                "Pečené křupavé koleno s čerstvým křenem",
+                "Vinná klobása s kysaným zelím a preclíkem (brezlem)",
+                "Alpský kynutý knedlík plněný povidlím, sypaný mákem a přelitý vanilkovou omáčkou",
+                "Čerstvě pečený brezel (preclík) se solí nebo sýrem"
+            ],
+
+            // Anglický překlad akce (zobrazí se po přepnutí na EN)
+            en: {
+                navShortTitle: "Oktoberfest",
+                heroBadgeText: "This weekend Oct 30–31: Oktoberfest at U Hastrmana",
+                sectionBadge: "🍺 Special Weekend Event",
+                title: "Oktoberfest U Hastrmana",
+                subtitle: "30 – 31 Oct 2026 • Friday from 17:00, Saturday from 11:00",
+                mainListTitle: "🍻 Slavkov Brewery Specials on Tap",
+                mainListBadge: "Slavkov Brewery",
+                mainItems: [
+                    { name: "Slavkov 12° Lager", note: "0.5 l", price: "55 Kč" },
+                    { name: "Slavkov Cold-Hopped Lager", note: "0.5 l", price: "55 Kč" },
+                    { name: "Slavkov Three Emperors Lager", note: "0.5 l", price: "55 Kč" },
+                    { name: "Industra Beer Dry Hop", note: "0.5 l", price: "55 Kč" },
+                    { name: "Slavkov Pale Ale", note: "0.5 l", price: "65 Kč" },
+                    { name: "Slavkov Sour Ale – Raspberry & Currant", note: "0.4 l", price: "80 Kč" },
+                    { name: "Slavkov Sour Ale – Pineapple & Grapefruit", note: "0.4 l", price: "80 Kč" }
+                ],
+                extraBoxTitle: "🥨 Special Oktoberfest Kitchen",
+                extraItems: [
+                    "Hearty goulash soup",
+                    "Crispy roasted pork knuckle with fresh horseradish",
+                    "Wine sausage with sauerkraut and Bavarian pretzel (brezel)",
+                    "Alpine steamed yeast dumpling filled with plum jam, topped with poppy seeds and vanilla sauce",
+                    "Freshly baked brezel (pretzel) with salt or cheese"
+                ]
+            },
+
+            // Plakáty akce (uložené ve stejné složce jako index.html)
+            posters: [
+                { src: "oktoberfest-plakat.jpg", alt: "Plakát Oktoberfest U Hastrmana" },
+                { src: "oktoberfest-piva.jpg", alt: "Víkendová nabídka piv Oktoberfest" }
+            ]
+        };
+
+        /* ----------------------------------------------------------------------------
+         * PŘEDCHYSTANÁ ŠABLONA ZA 14 DNÍ: SVATOMARTINSKÁ HUSA
+         * (Až skončí Oktoberfest, stačí přepsat hodnoty v SPECIAL_EVENT výše těmito:)
+         * ----------------------------------------------------------------------------
+        const SPECIAL_EVENT = {
+            active: true,
+            theme: "autumn",
+            navShortTitle: "Svatomartinské hody",
+            heroBadgeText: "Rezervujte si stůl: Svatomartinská husa & mladá vína",
+            sectionBadge: "🍷 Svatomartinská tradice",
+            title: "Svatomartinská husa U Hastrmana",
+            subtitle: "11. – 15. 11. 2026 • Rezervace přijímáme již nyní",
+            mainListTitle: "🍗 Svatomartinské menu",
+            mainListBadge: "Domácí kuchyně",
+            mainItems: [
+                { name: "Husí kaldoun s játrovými knedlíčky a domácími nudlemi", note: "0,33 l", price: "75 Kč" },
+                { name: "Pečené husí stehno, červené a bílé zelí, variace knedlíků", note: "hlavní chod", price: "390 Kč" },
+                { name: "Domácí lokše maštěné husím sádlem (slané / makové se švestkami)", note: "dezert", price: "95 Kč" }
+            ],
+            extraBoxTitle: "🍷 Mladá Svatomartinská vína",
+            extraItems: [
+                "Müller Thurgau & Muškát moravský",
+                "Modrý Portugal & Svatovavřinecké",
+                "Doporučujeme včasnou rezervaci porcí husy na tel. 605 577 026"
+            ],
+            posters: [
+                { src: "svatomartinska-husa.jpg", alt: "Plakát Svatomartinská husa U Hastrmana" }
+            ]
+        };
+        ---------------------------------------------------------------------------- */
+
+        // Vykreslení Speciální akce na stránku
+        function renderSpecialEvent() {
+            if (!SPECIAL_EVENT || !SPECIAL_EVENT.active) return;
+
+            const ev = (currentLang === 'en' && SPECIAL_EVENT.en) ? SPECIAL_EVENT.en : SPECIAL_EVENT;
+            const t = UI_TEXT[currentLang];
+
+            const section = document.getElementById('akce');
+            const container = document.getElementById('special-event-container');
+            const navDesktop = document.getElementById('nav-event-desktop');
+            const navDesktopText = document.getElementById('nav-event-desktop-text');
+            const navMobile = document.getElementById('nav-event-mobile');
+            const navMobileText = document.getElementById('nav-event-mobile-text');
+            const heroBadge = document.getElementById('hero-event-badge');
+            const heroBadgeText = document.getElementById('hero-event-badge-text');
+
+            // Zobrazení odkazů v navigaci a v Hero sekci
+            navDesktopText.textContent = ev.navShortTitle;
+            navDesktop.classList.remove('hidden');
+            navDesktop.classList.add('inline-flex');
+
+            navMobileText.textContent = `❖ ${ev.navShortTitle}`;
+            navMobile.classList.remove('hidden');
+            navMobile.classList.add('flex');
+
+            heroBadgeText.textContent = ev.heroBadgeText;
+            heroBadge.classList.remove('hidden');
+            heroBadge.classList.add('inline-flex');
+
+            const borderClass = SPECIAL_EVENT.theme === 'bavaria' ? 'border-bavaria' : 'border-autumn';
+            const badgeColorClass = SPECIAL_EVENT.theme === 'bavaria' 
+                ? 'bg-sky-900/10 text-sky-900 border-sky-800/20' 
+                : 'bg-amber-900/10 text-amber-900 border-amber-800/20';
+
+            const hasPosters = Array.isArray(SPECIAL_EVENT.posters) && SPECIAL_EVENT.posters.length > 0;
+            const leftColSpan = hasPosters ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl mx-auto w-full';
+
+            let mainItemsHtml = '';
+            if (Array.isArray(ev.mainItems) && ev.mainItems.length > 0) {
+                mainItemsHtml = `
+                    <div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#dfd3c3] pb-3 mb-5">
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-charcoal">
+                                ${escapeHtml(ev.mainListTitle)}
+                            </h3>
+                            ${ev.mainListBadge ? `<span class="text-xs font-semibold uppercase tracking-wider bg-[#efe7da] text-amber-900 border border-[#dfd3c3] px-3 py-1 rounded-md shrink-0">${escapeHtml(ev.mainListBadge)}</span>` : ''}
+                        </div>
+                        <div class="space-y-3.5">
+                            ${ev.mainItems.map(item => `
+                                <div class="flex items-baseline justify-between gap-2">
+                                    <span class="font-semibold text-stone-900 text-base sm:text-lg">${escapeHtml(item.name)}</span>
+                                    <div class="flex-grow border-b border-dotted border-stone-400/70 mx-2"></div>
+                                    ${item.note ? `<span class="text-xs sm:text-sm text-stone-500 font-medium mr-2 whitespace-nowrap">${escapeHtml(item.note)}</span>` : ''}
+                                    <span class="font-bold text-amber-800 text-base sm:text-lg whitespace-nowrap">${escapeHtml(item.price)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            let extraBoxHtml = '';
+            if (Array.isArray(ev.extraItems) && ev.extraItems.length > 0) {
+                extraBoxHtml = `
+                    <div class="bg-[#f5efe6] rounded-xl p-6 border border-[#dfd3c3]">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-charcoal mb-4">
+                            ${escapeHtml(ev.extraBoxTitle)}
+                        </h3>
+                        <ul class="space-y-2.5 text-stone-800 font-medium text-sm sm:text-base">
+                            ${ev.extraItems.map(line => `
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-amber-700 font-bold">&bull;</span>
+                                    <span>${escapeHtml(line)}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            let postersHtml = '';
+            if (hasPosters) {
+                postersHtml = `
+                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-5">
+                        ${SPECIAL_EVENT.posters.map((poster) => `
+                            <div class="group relative rounded-xl overflow-hidden border-2 border-[#dfd3c3] shadow-sm bg-stone-100 cursor-pointer" onclick="openLightbox('${escapeHtml(poster.src)}')">
+                                <img src="${escapeHtml(poster.src)}" 
+                                     alt="${escapeHtml(poster.alt || 'Plakát akce')}" 
+                                     class="w-full h-auto object-cover group-hover:scale-102 transition-transform duration-300"
+                                     onerror="this.parentElement.style.display='none'">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-end justify-end p-3">
+                                    <span class="bg-charcoal/85 text-stone-100 text-xs font-medium px-3 py-1.5 rounded-md backdrop-blur-sm">${escapeHtml(t.event_zoom)}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="text-center mb-10">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-md text-xs font-bold uppercase tracking-widest border mb-3 ${badgeColorClass}">
+                        ${escapeHtml(ev.sectionBadge)}
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-charcoal">
+                        ${escapeHtml(ev.title)}
+                    </h2>
+                    <p class="text-base sm:text-lg font-semibold text-amber-800 mt-2">
+                        ${escapeHtml(ev.subtitle)}
+                    </p>
+                </div>
+
+                <div class="bg-paper rounded-2xl menu-card-frame overflow-hidden">
+                    <div class="h-2.5 w-full ${borderClass}"></div>
+                    <div class="p-6 sm:p-10 lg:p-12">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                            <div class="${leftColSpan} space-y-8">
+                                ${mainItemsHtml}
+                                ${extraBoxHtml}
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+                                    <p class="text-sm text-stone-600">${escapeHtml(t.event_reserve_note)}</p>
+                                    <a href="tel:+420605577026" class="inline-flex items-center justify-center gap-2 bg-wood hover:bg-charcoal text-stone-100 font-semibold text-sm px-6 py-3.5 rounded-lg transition-colors shadow-sm shrink-0">
+                                        ${escapeHtml(t.event_reserve_btn)}
+                                    </a>
+                                </div>
+                            </div>
+                            ${postersHtml}
+                        </div>
+                    </div>
+                    <div class="h-2.5 w-full ${borderClass}"></div>
+                </div>
+            `;
+
+            section.classList.remove('hidden');
+        }
+
+        // Lightbox pro zvětšení fotek a plakátů
+        function openLightbox(imgSrc) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = imgSrc;
+            lb.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // 2. Konfigurace URL adres Google Tabulek (Ponecháno 100% beze změny)
+        const DAILY_MENU_RAW_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDwWB6KZajEjVXPAf7a4Ue1whPXmpYuOwR9sNkuzE5KVXvMEwKwyC6f-ZsI9Dcc5hAwmyKSkfGV4Ir/pubhtml?gid=0&single=true";
+        const REGULAR_MENU_RAW_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDwWB6KZajEjVXPAf7a4Ue1whPXmpYuOwR9sNkuzE5KVXvMEwKwyC6f-ZsI9Dcc5hAwmyKSkfGV4Ir/pubhtml?gid=1610825920&single=true";
+
+        function toCsvUrl(url) {
+            let cleanUrl = url.replace(/^\[|\]$/g, '').trim();
+            if (cleanUrl.includes('/pubhtml')) {
+                cleanUrl = cleanUrl.replace('/pubhtml', '/pub');
+                cleanUrl += (cleanUrl.includes('?') ? '&' : '?') + 'output=csv';
+            }
+            return cleanUrl;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatPrice(priceStr) {
+            if (!priceStr) return '';
+            const cleaned = priceStr.trim();
+            if (!cleaned) return '';
+            if (currentLang === 'en' && normalizeKey(cleaned) === 'v cene menu') {
+                return 'included with menu';
+            }
+            if (/kč|czk|,-/i.test(cleaned)) return escapeHtml(cleaned);
+            return `${escapeHtml(cleaned)} Kč`;
+        }
+
+        // 3. Robustní CSV Parser (Ponecháno 100% beze změny)
+        function parseCSV(csvText) {
+            const rows = [];
+            let currentRow = [];
+            let currentVal = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < csvText.length; i++) {
+                const char = csvText[i];
+                const nextChar = csvText[i + 1];
+
+                if (inQuotes) {
+                    if (char === '"' && nextChar === '"') {
+                        currentVal += '"';
+                        i++;
+                    } else if (char === '"') {
+                        inQuotes = false;
+                    } else {
+                        currentVal += char;
+                    }
+                } else {
+                    if (char === '"') {
+                        inQuotes = true;
+                    } else if (char === ',') {
+                        currentRow.push(currentVal.trim());
+                        currentVal = '';
+                    } else if (char === '\n' || (char === '\r' && nextChar === '\n')) {
+                        if (char === '\r') i++;
+                        currentRow.push(currentVal.trim());
+                        if (currentRow.some(cell => cell !== '')) {
+                            rows.push(currentRow);
+                        }
+                        currentRow = [];
+                        currentVal = '';
+                    } else {
+                        currentVal += char;
+                    }
+                }
+            }
+
+            if (currentVal !== '' || currentRow.length > 0) {
+                currentRow.push(currentVal.trim());
+                if (currentRow.some(cell => cell !== '')) {
+                    rows.push(currentRow);
+                }
+            }
+            return rows;
+        }
+
+        function normalizeKey(str) {
+            return (str || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        }
+
+        // Vykreslení načtených řádků denního menu
+        function renderDailyMenuRows(rows) {
+            const skeleton = document.getElementById('daily-menu-skeleton');
+            const content = document.getElementById('daily-menu-content');
+            const t = UI_TEXT[currentLang];
+
+            const headers = rows[0].map(normalizeKey);
+            const idxSekce = headers.findIndex(h => h.includes('sekce') || h.includes('den')) !== -1 ? headers.findIndex(h => h.includes('sekce') || h.includes('den')) : 0;
+            const idxTyp   = headers.findIndex(h => h.includes('typ')) !== -1 ? headers.findIndex(h => h.includes('typ')) : 1;
+            const idxNazev = headers.findIndex(h => (h.includes('nazev') || h.includes('jidlo')) && !h.includes('en')) !== -1 ? headers.findIndex(h => (h.includes('nazev') || h.includes('jidlo')) && !h.includes('en')) : 2;
+            const idxCena  = headers.findIndex(h => h.includes('cena')) !== -1 ? headers.findIndex(h => h.includes('cena')) : 3;
+            const idxNazevEn = headers.findIndex(h => h.includes('nazev_en') || h.includes('en'));
+
+            const dataRows = rows.slice(1).map(r => ({
+                sekce: r[idxSekce] || '',
+                typ: r[idxTyp] || '',
+                nazev: (currentLang === 'en' && idxNazevEn !== -1 && r[idxNazevEn]) ? r[idxNazevEn] : (r[idxNazev] || ''),
+                cena: r[idxCena] || ''
+            })).filter(item => item.sekce && item.nazev);
+
+            if (dataRows.length === 0) throw new Error('Žádné platné řádky v denním menu');
+
+            const weeklyItems = [];
+            const daysMap = new Map();
+
+            dataRows.forEach(item => {
+                const normSekce = normalizeKey(item.sekce);
+                if (normSekce.includes('tyden')) {
+                    weeklyItems.push(item);
+                } else {
+                    if (!daysMap.has(item.sekce)) {
+                        daysMap.set(item.sekce, []);
+                    }
+                    daysMap.get(item.sekce).push(item);
+                }
+            });
+
+            let html = '';
+
+            if (weeklyItems.length > 0) {
+                html += `
+                    <div class="bg-[#efe7da] border-2 border-amber-800/30 rounded-xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-5 border-b border-amber-900/15 pb-3.5">
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-charcoal">${escapeHtml(t.daily_weekly_title)}</h3>
+                            <span class="text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-md bg-paper text-amber-900 border border-[#dfd3c3]">${escapeHtml(t.daily_weekly_badge)}</span>
+                        </div>
+                        <div class="space-y-3.5">
+                `;
+
+                weeklyItems.forEach(item => {
+                    html += `
+                        <div class="flex items-baseline justify-between gap-2">
+                            <div class="font-medium text-stone-900 text-base sm:text-lg">
+                                ${item.typ ? `<span class="text-amber-800 font-bold mr-1.5">${escapeHtml(translateSheetTerm(item.typ))}:</span>` : ''}
+                                <span>${escapeHtml(item.nazev)}</span>
+                            </div>
+                            <div class="flex-grow border-b border-dotted border-amber-800/40 mx-2 hidden sm:block"></div>
+                            <div class="font-bold text-amber-900 text-base sm:text-lg whitespace-nowrap">${formatPrice(item.cena)}</div>
+                        </div>
+                    `;
+                });
+
+                html += `</div></div>`;
+            }
+
+            if (daysMap.size > 0) {
+                const todayIndex = new Date().getDay();
+                const dayNamesNorm = { 1: 'pondeli', 2: 'utery', 3: 'streda', 4: 'ctvrtek', 5: 'patek' };
+                const todayNorm = dayNamesNorm[todayIndex] || '';
+
+                html += `<div class="grid grid-cols-1 gap-5">`;
+
+                daysMap.forEach((items, dayTitle) => {
+                    const isToday = todayNorm && normalizeKey(dayTitle).includes(todayNorm);
+                    const soups = items.filter(i => normalizeKey(i.typ).includes('polevk'));
+                    const mains = items.filter(i => !normalizeKey(i.typ).includes('polevk'));
+
+                    html += `
+                        <div class="bg-paper rounded-xl p-6 sm:p-8 transition-all menu-card-frame ${isToday ? 'ring-2 ring-amber-700' : ''}">
+                            <div class="flex items-center justify-between border-b border-[#e6dccf] pb-3.5 mb-5">
+                                <h3 class="font-serif text-xl sm:text-2xl font-bold text-charcoal flex items-center gap-3">
+                                    <span>${escapeHtml(translateSheetTerm(dayTitle))}</span>
+                                    ${isToday ? `<span class="font-sans text-xs font-semibold uppercase tracking-wider bg-amber-700 text-white px-2.5 py-0.5 rounded-md">${escapeHtml(t.daily_today_badge)}</span>` : ''}
+                                </h3>
+                            </div>
+                    `;
+
+                    if (soups.length > 0) {
+                        html += `<div class="mb-5 bg-[#f5efe6] rounded-lg p-3.5 sm:p-4 border border-[#e2d6c5] space-y-2">`;
+                        soups.forEach(soup => {
+                            html += `
+                                <div class="flex items-baseline justify-between gap-2 text-sm sm:text-base text-stone-700">
+                                    <div>
+                                        <span class="font-bold text-amber-800 uppercase text-xs tracking-wider mr-2">${escapeHtml(translateSheetTerm(soup.typ || t.daily_soup_default))}:</span>
+                                        <span class="italic font-serif text-stone-800">${escapeHtml(soup.nazev)}</span>
+                                    </div>
+                                    ${soup.cena ? `<span class="font-semibold text-stone-600 text-xs sm:text-sm whitespace-nowrap">${formatPrice(soup.cena)}</span>` : ''}
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+
+                    if (mains.length > 0) {
+                        html += `<div class="space-y-3.5">`;
+                        mains.forEach(main => {
+                            html += `
+                                <div class="flex items-baseline justify-between gap-2">
+                                    <div class="text-stone-800 text-base sm:text-lg leading-snug">
+                                        ${main.typ ? `<span class="inline-block font-semibold text-xs uppercase tracking-wider bg-[#efe7da] text-stone-700 border border-[#dfd3c3] px-2 py-0.5 rounded mr-2 align-middle">${escapeHtml(main.typ)}</span>` : ''}
+                                        <span class="font-medium align-middle">${escapeHtml(main.nazev)}</span>
+                                    </div>
+                                    <div class="flex-grow border-b border-dotted border-stone-400/70 mx-2 hidden sm:block"></div>
+                                    <div class="font-bold text-charcoal text-base sm:text-lg whitespace-nowrap shrink-0">${formatPrice(main.cena)}</div>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+
+                    html += `</div>`;
+                });
+
+                html += `</div>`;
+            }
+
+            content.innerHTML = html;
+            skeleton.classList.add('hidden');
+            content.classList.remove('hidden');
+        }
+
+        // 4. Načtení a vykreslení DENNÍHO A TÝDENNÍHO MENU (Původní fetch logika)
+        async function loadDailyMenu() {
+            const skeleton = document.getElementById('daily-menu-skeleton');
+            const errorBox = document.getElementById('daily-menu-error');
+
+            try {
+                const response = await fetch(toCsvUrl(DAILY_MENU_RAW_URL), { cache: 'no-store' });
+                if (!response.ok) throw new Error('Síťová chyba při načítání CSV');
+                
+                const csvText = await response.text();
+                if (csvText.trim().startsWith('<!DOCTYPE') || csvText.trim().startsWith('<html')) {
+                    throw new Error('Vráceno HTML místo CSV');
+                }
+
+                const rows = parseCSV(csvText);
+                if (rows.length < 2) throw new Error('Tabulka neobsahuje data');
+
+                lastDailyRows = rows;
+                renderDailyMenuRows(rows);
+
+            } catch (err) {
+                console.error('Chyba při načítání denního menu:', err);
+                skeleton.classList.add('hidden');
+                errorBox.classList.remove('hidden');
+            }
+        }
+
+        // Vykreslení načtených řádků stálého jídelního lístku
+        function renderRegularMenuRows(rows) {
+            const skeleton = document.getElementById('regular-menu-skeleton');
+            const content = document.getElementById('regular-menu-content');
+
+            const headers = rows[0].map(normalizeKey);
+            const idxKat   = headers.findIndex(h => h.includes('kategor') && !h.includes('en')) !== -1 ? headers.findIndex(h => h.includes('kategor') && !h.includes('en')) : 0;
+            const idxNazev = headers.findIndex(h => (h.includes('nazev') || h.includes('jidlo')) && !h.includes('en')) !== -1 ? headers.findIndex(h => (h.includes('nazev') || h.includes('jidlo')) && !h.includes('en')) : 1;
+            const idxPopis = headers.findIndex(h => h.includes('popis') && !h.includes('en')) !== -1 ? headers.findIndex(h => h.includes('popis') && !h.includes('en')) : 2;
+            const idxCena  = headers.findIndex(h => h.includes('cena')) !== -1 ? headers.findIndex(h => h.includes('cena')) : 3;
+
+            const idxKatEn   = headers.findIndex(h => h.includes('kategorie_en'));
+            const idxNazevEn = headers.findIndex(h => h.includes('nazev_en'));
+            const idxPopisEn = headers.findIndex(h => h.includes('popis_en'));
+
+            const dataRows = rows.slice(1).map(r => ({
+                kategorie: (currentLang === 'en' && idxKatEn !== -1 && r[idxKatEn]) ? r[idxKatEn] : translateSheetTerm(r[idxKat] || 'Ostatní'),
+                nazev: (currentLang === 'en' && idxNazevEn !== -1 && r[idxNazevEn]) ? r[idxNazevEn] : (r[idxNazev] || ''),
+                popis: (currentLang === 'en' && idxPopisEn !== -1 && r[idxPopisEn]) ? r[idxPopisEn] : (r[idxPopis] || ''),
+                cena: r[idxCena] || ''
+            })).filter(item => item.nazev);
+
+            if (dataRows.length === 0) throw new Error('Žádné položky ve stálém lístku');
+
+            const categoryMap = new Map();
+            dataRows.forEach(item => {
+                if (!categoryMap.has(item.kategorie)) {
+                    categoryMap.set(item.kategorie, []);
+                }
+                categoryMap.get(item.kategorie).push(item);
+            });
+
+            let html = '';
+            categoryMap.forEach((items, categoryName) => {
+                html += `
+                    <div class="bg-wood border border-oak rounded-xl p-6 sm:p-8 shadow-md">
+                        <div class="flex items-center gap-3 mb-5 pb-3.5 border-b border-oak">
+                            <span class="text-amber-500 text-sm">❖</span>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-stone-100">${escapeHtml(categoryName)}</h3>
+                        </div>
+                        <div class="divide-y divide-oak/70">
+                `;
+
+                items.forEach(item => {
+                    html += `
+                        <div class="py-4 first:pt-0 last:pb-0 flex items-start justify-between gap-4 group">
+                            <div class="pr-2">
+                                <h4 class="text-base sm:text-lg font-semibold text-stone-100 group-hover:text-amber-400 transition-colors">
+                                    ${escapeHtml(item.nazev)}
+                                </h4>
+                                ${item.popis ? `<p class="text-xs sm:text-sm text-stone-400 mt-1 leading-relaxed">${escapeHtml(item.popis)}</p>` : ''}
+                            </div>
+                            <div class="text-base sm:text-lg font-bold text-amber-400 whitespace-nowrap shrink-0 pt-0.5">
+                                ${formatPrice(item.cena)}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div></div>`;
+            });
+
+            content.innerHTML = html;
+            skeleton.classList.add('hidden');
+            content.classList.remove('hidden');
+        }
+
+        // 5. Načtení a vykreslení STÁLÉHO JÍDELNÍHO LÍSTKU (Původní fetch logika)
+        async function loadRegularMenu() {
+            const skeleton = document.getElementById('regular-menu-skeleton');
+            const errorBox = document.getElementById('regular-menu-error');
+
+            try {
+                const response = await fetch(toCsvUrl(REGULAR_MENU_RAW_URL), { cache: 'no-store' });
+                if (!response.ok) throw new Error('Síťová chyba při načítání stálého lístku');
+
+                const csvText = await response.text();
+                if (csvText.trim().startsWith('<!DOCTYPE') || csvText.trim().startsWith('<html')) {
+                    throw new Error('Vráceno HTML místo CSV');
+                }
+
+                const rows = parseCSV(csvText);
+                if (rows.length < 2) throw new Error('Tabulka stálého lístku je prázdná');
+
+                lastRegularRows = rows;
+                renderRegularMenuRows(rows);
+
+            } catch (err) {
+                console.error('Chyba při načítání stálého lístku:', err);
+                skeleton.classList.add('hidden');
+                errorBox.classList.remove('hidden');
+            }
+        }
+
+        // Přepnutí jazyka CZ / EN
+        function setLanguage(lang) {
+            currentLang = (lang === 'en') ? 'en' : 'cs';
+            localStorage.setItem('hastrman_lang', currentLang);
+            document.documentElement.lang = currentLang;
+
+            ['desktop', 'mobile'].forEach(mode => {
+                const btnCs = document.getElementById(`lang-btn-cs-${mode}`);
+                const btnEn = document.getElementById(`lang-btn-en-${mode}`);
+                if (currentLang === 'cs') {
+                    btnCs.className = "px-2.5 py-1 rounded-md transition-colors bg-amber-700 text-white";
+                    btnEn.className = "px-2.5 py-1 rounded-md transition-colors text-stone-400 hover:text-stone-200";
+                } else {
+                    btnEn.className = "px-2.5 py-1 rounded-md transition-colors bg-amber-700 text-white";
+                    btnCs.className = "px-2.5 py-1 rounded-md transition-colors text-stone-400 hover:text-stone-200";
+                }
+            });
+
+            const dict = UI_TEXT[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+
+            renderSpecialEvent();
+            if (lastDailyRows) {
+                try { renderDailyMenuRows(lastDailyRows); } catch (e) {}
+            }
+            if (lastRegularRows) {
+                try { renderRegularMenuRows(lastRegularRows); } catch (e) {}
+            }
+        }
+
+        // 6. Inicializace po načtení DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function toggleMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    iconOpen.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) toggleMenu();
+                });
+            });
+
+            setLanguage(currentLang);
+            loadDailyMenu();
+            loadRegularMenu();
+        });
+    </script>
+</body>
+</html>
